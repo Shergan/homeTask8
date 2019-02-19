@@ -6,13 +6,13 @@ import java.util.List;
 
 public class BTreePrinter {
 
-    public static <T extends Comparable<?>> void printNode(Entry root) {
+    public static <T extends Comparable<?>> void printNode(TreeNode root) {
         int maxLevel = BTreePrinter.maxLevel(root);
 
         printNodeInternal(Collections.singletonList(root), 1, maxLevel);
     }
 
-    private static <T extends Comparable<?>> void printNodeInternal(List<Entry> entries, int level, int maxLevel) {
+    private static <T extends Comparable<?>> void printNodeInternal(List<TreeNode> entries, int level, int maxLevel) {
         if (entries.isEmpty() || BTreePrinter.isAllElementsNull(entries))
             return;
 
@@ -23,12 +23,12 @@ public class BTreePrinter {
 
         BTreePrinter.printWhitespaces(firstSpaces);
 
-        List<Entry> newEntries = new ArrayList<>();
-        for (Entry entry : entries) {
-            if (entry != null) {
-                System.out.print(entry.value);
-                newEntries.add(entry.left);
-                newEntries.add(entry.right);
+        List<TreeNode> newEntries = new ArrayList<>();
+        for (TreeNode treeNode : entries) {
+            if (treeNode != null) {
+                System.out.print(treeNode.value);
+                newEntries.add(treeNode.left);
+                newEntries.add(treeNode.right);
             } else {
                 newEntries.add(null);
                 newEntries.add(null);
@@ -73,11 +73,11 @@ public class BTreePrinter {
             System.out.print(" ");
     }
 
-    private static <T extends Comparable<?>> int maxLevel(Entry entry) {
-        if (entry == null)
+    private static <T extends Comparable<?>> int maxLevel(TreeNode treeNode) {
+        if (treeNode == null)
             return 0;
 
-        return Math.max(BTreePrinter.maxLevel(entry.left), BTreePrinter.maxLevel(entry.right)) + 1;
+        return Math.max(BTreePrinter.maxLevel(treeNode.left), BTreePrinter.maxLevel(treeNode.right)) + 1;
     }
 
     private static <T> boolean isAllElementsNull(List<T> list) {

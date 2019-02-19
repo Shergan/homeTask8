@@ -9,19 +9,19 @@ public class Main {
         }
 
         //Tree 1
-        Entry treeNodeFirstRoot = new Entry(1);
+        TreeNode treeNodeFirstRoot = new TreeNode(1);
 
-        treeNodeFirstRoot.left = new Entry(3);
-        treeNodeFirstRoot.right = new Entry(2);
-        treeNodeFirstRoot.left.left = new Entry(5);
+        treeNodeFirstRoot.left = new TreeNode(3);
+        treeNodeFirstRoot.right = new TreeNode(2);
+        treeNodeFirstRoot.left.left = new TreeNode(5);
 
         //Tree 2
-        Entry treeNodeSecondRoot = new Entry(2);
+        TreeNode treeNodeSecondRoot = new TreeNode(2);
 
-        treeNodeSecondRoot.left = new Entry(1);
-        treeNodeSecondRoot.right = new Entry(3);
-        treeNodeSecondRoot.left.right = new Entry(4);
-        treeNodeSecondRoot.right.right = new Entry(7);
+        treeNodeSecondRoot.left = new TreeNode(1);
+        treeNodeSecondRoot.right = new TreeNode(3);
+        treeNodeSecondRoot.left.right = new TreeNode(4);
+        treeNodeSecondRoot.right.right = new TreeNode(7);
 
         System.out.println();
         System.out.println();
@@ -35,6 +35,30 @@ public class Main {
         System.out.println();
 
         BTreePrinter.printNode(mergeTrees(treeNodeFirstRoot, treeNodeSecondRoot));
+
+
+        //Tree 3
+        TreeNode treeNode = new TreeNode(3);
+        treeNode.left = new TreeNode(3);
+        treeNode.right = new TreeNode(3);
+        treeNode.left.left = new TreeNode(3);
+        treeNode.right.right = new TreeNode(3);
+
+        TreeNode treeNode2 = new TreeNode(3);
+        treeNode2.left = new TreeNode(3);
+        treeNode2.right = new TreeNode(3);
+        treeNode2.left.left = new TreeNode(523);
+        treeNode2.right.right = new TreeNode(3);
+
+        TreeNode treeNode3 = new TreeNode(1014);
+        treeNode3.left = new TreeNode(3);
+        treeNode3.right = new TreeNode(3);
+        treeNode3.left.left = new TreeNode(5122);
+        treeNode3.right.right = new TreeNode(8544);
+
+        System.out.println(checkTree(treeNode));
+        System.out.println(checkTree(treeNode2));
+        System.out.println(checkTree(treeNode3));
     }
 
     private static int getFiboNumber(int index) {
@@ -47,7 +71,7 @@ public class Main {
         }
     }
 
-    private static Entry mergeTrees(Entry t1, Entry t2) {
+    private static TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
         if (t1 == null) {
             return t2;
         }
@@ -61,5 +85,23 @@ public class Main {
         t1.right = mergeTrees(t1.right, t2.right);
 
         return t1;
+    }
+
+    private static boolean checkTree(TreeNode treeNode) {
+        if (treeNode != null) {
+            return checkTree(treeNode, treeNode.value);
+        } else {
+            return true;
+        }
+    }
+
+    private static boolean checkTree(TreeNode treeNode, int key) {
+        if (treeNode == null) {
+            return true;
+        }
+        if (treeNode.value != key) {
+            return false;
+        }
+        return checkTree(treeNode.left, key) && checkTree(treeNode.right, key);
     }
 }
